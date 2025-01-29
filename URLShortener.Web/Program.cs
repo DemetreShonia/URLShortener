@@ -1,6 +1,19 @@
+using URLShortener.BusinessLogic.Services.Interfaces;
+using URLShortener.BusinessLogic.Services.Implementations;
+using Microsoft.EntityFrameworkCore;
+using URLShortener.Data.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IUrlService, UrlService>();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
