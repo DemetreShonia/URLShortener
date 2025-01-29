@@ -1,0 +1,26 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Shortened URL";
+}
+
+<h1>Shortened URL</h1>
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <p class="text-red">Here is your shortened URL: <a href="Url/GetOriginalUrl?shortUrl=@Model" target="_blank">@Model</a></p>
+}
+
+<p class="text-4xl">HEY</p>
+
+<form method="post" asp-controller="Url" asp-action="ShortenUrl">
+    <label for="longUrl">Enter URL to shorten:</label>
+    <input type="text" id="longUrl" name="longUrl" required>
+    <button btn btn-danger type="submit">Shorten</button>
+</form>
+
+<form method="get" asp-controller="Url" asp-action="GetOriginalUrl">
+    <label for="shortUrl" class="text-sky-400">Enter shortened URL:</label>
+    <input type="text" id="shortUrl" name="shortUrl" required>
+    <button type="submit">Retrieve Original URL</button>
+</form>

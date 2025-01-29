@@ -11,6 +11,13 @@ namespace URLShortener.Web.Controllers
             _urlService = service;
         }
 
+        [HttpGet]
+        public IActionResult ShortenUrl()
+        {
+            return View("Url"); 
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> ShortenUrl(string longUrl)
         {
@@ -19,8 +26,9 @@ namespace URLShortener.Web.Controllers
                 return BadRequest("The url cannot be empty!");
             }
 
-            var shortUrl = _urlService.ShortenUrl(longUrl);
-            return Ok(new { shortUrl }); // can change this to view
+            var shortUrl = await _urlService.ShortenUrl(longUrl);
+
+            return View("Url", shortUrl.ToString());
         }
 
         [HttpGet]
